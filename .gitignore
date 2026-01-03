@@ -3,7 +3,11 @@ data/extracted_features.csv
 processed_npy
 data
 
+models/random_forest_model/rf_model.pkl
+models/random_forest_model/scaler.pkl
 
+models/svm_model/svm_model.pkl
+models/svm_model/scaler.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
