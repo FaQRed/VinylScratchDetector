@@ -30,10 +30,8 @@ def process_and_save_mel(file_path, save_path, sr=16000, duration=3.0):
         mel_norm = (mel_db - mel_db.min()) / (mel_db.max() - mel_db.min() + 1e-6)
 
         np.save(save_path, mel_norm.astype(np.float32))
-        return True
     except Exception as e:
-        print(f"Error with fil {file_path}: {e}")
-        return False
+        print(f"Error with file {file_path}: {e}")
 
 if __name__ == "__main__":
     DATA_PATH = os.path.join(root_dir, 'data')
