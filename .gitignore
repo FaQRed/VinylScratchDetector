@@ -1,9 +1,14 @@
+.idea
+extracted_features.csv
+processed_npy
+data
+
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
-
-.idea
 
 # C extensions
 *.so
