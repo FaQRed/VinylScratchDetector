@@ -1,5 +1,5 @@
 .idea
-extracted_features.csv
+data/extracted_features.csv
 processed_npy
 data
 

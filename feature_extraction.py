@@ -9,23 +9,28 @@ from preprocess import build_dataset_df
 
 def extract_all_features(file_path):
     try:
-
         y, sr = librosa.load(file_path, duration=3.0)
 
-
+        # Temporal and Spectral features extraction
         zcr = ft.zero_crossing_rate(y)
         rmse = ft.rms(y=y)
         mfccs = ft.mfcc(y=y, sr=sr, n_mfcc=13)
         centroid = ft.spectral_centroid(y=y, sr=sr)
 
-
         features = {
+            # ZCR: How often the signal changes sign (helps detect high-frequency noise)
             'zcr_mean': np.mean(zcr),
             'zcr_std': np.std(zcr),
             'zcr_max': np.max(zcr),
+
+            # RMSE: Energy/Loudness of the signal (helps detect volume spikes from scratches)
             'rmse_mean': np.mean(rmse),
             'rmse_max': np.max(rmse),
+
+            # MFCC: Spectral shape of the sound
             'mfcc_mean': np.mean(mfccs),
+
+            # Spectral Centroid: "Brightness" of the sound (scratches usually increase brightness)
             'centroid_mean': np.mean(centroid),
             'centroid_max': np.max(centroid)
         }
