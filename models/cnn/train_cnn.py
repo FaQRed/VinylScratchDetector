@@ -4,25 +4,13 @@ import tensorflow as tf
 from tensorflow.keras import layers, models, callbacks
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-
+from data_loader import get_data
 
 MAP_PATH = '../../cnn_dataset_map.csv'
 MODEL_NAME = 'vinyl_cnn_model.keras'
 BATCH_SIZE = 32
 EPOCHS = 50
 
-
-def load_data(csv_path):
-    # Load spectrograms and labels from CSV map.
-    print("Loading data...")
-    df = pd.read_csv(csv_path)
-    X = []
-    for path in df['npy_path']:
-        X.append(np.load(path))
-    X = np.array(X)[..., np.newaxis]
-    y = df['label'].values
-    print(f"Data loaded: {X.shape[0]} samples.")
-    return X, y
 
 
 def build_model(input_shape):
@@ -75,10 +63,7 @@ def plot_results(history):
 
 
 def train():
-    X, y = load_data(MAP_PATH)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42, stratify=y
-    )
+    X_train, X_test, X_val, y_train, y_test, y_val = get_data(MAP_PATH)
 
     model = build_model(X_train.shape[1:])
 
@@ -95,7 +80,7 @@ def train():
         X_train, y_train,
         epochs=EPOCHS,
         batch_size=BATCH_SIZE,
-        validation_data=(X_test, y_test),
+        validation_data=(X_val, y_val),
         callbacks=my_callbacks,
         verbose=1
     )
