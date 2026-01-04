@@ -2,7 +2,10 @@
 data/extracted_features.csv
 processed_npy
 data
+test_data
 cnn_dataset_map.csv
+
+models/cnn/tuner_results
 
 
 models/random_forest_model/rf_model.pkl
