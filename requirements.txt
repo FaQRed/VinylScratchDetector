@@ -1,0 +1,15 @@
+tensorflow
+keras-tuner
+pandas
+numpy
+matplotlib
+scikit-learn
+librosa
+tqdm
+joblib
+torch
+transformers
+uvicorn
+fastapi
+seaborn
+kaggle
