@@ -7,6 +7,9 @@ cnn_dataset_map.csv
 
 models/cnn/tuner_results
 
+mert_dataset_map.csv
+mert_features
+
 
 models/random_forest_model/rf_model.pkl
 models/random_forest_model/scaler.pkl
