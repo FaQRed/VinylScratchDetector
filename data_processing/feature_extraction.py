@@ -42,7 +42,7 @@ def extract_all_features(file_path):
 
 if __name__ == "__main__":
     print("Scanning the folder with data...")
-    df = build_dataset_df('./data')
+    df = build_dataset_df('../data')
 
     if df.empty:
         print("Error: DataFrame is empty. Check the path to './data'")

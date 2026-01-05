@@ -29,7 +29,7 @@ def build_dataset_df(data_path):
 
 if __name__ == "__main__":
 
-    df = build_dataset_df('./data')
+    df = build_dataset_df('../data')
 
 
     print(df['label'].value_counts())

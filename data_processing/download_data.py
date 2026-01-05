@@ -6,7 +6,7 @@ def download_vinyl_dataset():
     api.authenticate()
 
     dataset = "seandaly/detecting-scratch-noise-in-vinyl-playback"
-    target_dir = "./data"
+    target_dir = "../data"
 
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
