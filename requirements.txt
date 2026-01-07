@@ -13,3 +13,7 @@ uvicorn
 fastapi
 seaborn
 kaggle
+
+
+nnaudio
+python-multipart

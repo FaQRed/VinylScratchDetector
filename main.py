@@ -9,8 +9,16 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI, UploadFile, File
 from transformers import Wav2Vec2FeatureExtractor, AutoModel
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Vinyl Scratch Detector API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 
 WINDOW_SEC = 3.0
