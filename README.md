@@ -4,6 +4,10 @@ An automated system for detecting mechanical defects and scratches on vinyl reco
 
 ---
 
+## DEMO
+<img width="1000" height="900" alt="image" src="https://github.com/user-attachments/assets/f55845ba-1084-4fda-a029-31f2d9156b93" />
+
+
 ## Project Structure
 
 
