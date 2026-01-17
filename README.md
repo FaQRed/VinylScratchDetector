@@ -26,6 +26,8 @@ An automated system for detecting mechanical defects and scratches on vinyl reco
 │       ├── extracting_mert.py          # MERT hidden state feature extraction
 │       ├── train_mert_model.py         # Classifier training on MERT embeddings
 │       └── vinyl_mert_classifier.keras # Final MERT classifier weights
+│   ├── crnn/                           # Hybrid CRNN (CNN + LSTM)
+│   │   └── train_crnn.py               # Training pipeline
 └── visualization/                      # Performance analytics
 ```
 
@@ -117,6 +119,12 @@ To minimize "false alarms" during playback, we analyzed the performance of our c
 ![RF vs SVM Comparison](visualization/confusion_matrix_comparison(rf_svm).png)
 
 
+### CRNN Training Progress
+The training history shows how the model converged over 50 epochs. The overlap between training and validation curves indicates successful regularization.
+![CRNN training](visualization/crnn_training_plots.png)
+
+### CRNN Confusion Matrix
+![CRNN Confusion Matrix](visualization/crnn_confusion_matrix.png)
 
 ### 3. Feature Importance
 Using the Random Forest's feature importance attributes, we identified the primary features for vinyl damage.
@@ -128,14 +136,13 @@ Using the Random Forest's feature importance attributes, we identified the prima
 
 ## Performance Benchmark
 
-| Model | Accuracy | Recall (Scratch) |
-| --- | --- | --- |
-| **MERT + TF** | ~96% | ~98% |
-| **CNN** | ~91% | ~88% |
-| **Random Forest** | ~89% | ~82% |
-| **SVM** | ~87% | ~80% |
-
-
+| Model | Accuracy | Recall (Scratch) | F1-Score (Scratch) |
+| :--- | :--- | :--- | :--- |
+| **MERT Transformer** | **96%** | **98%** | **0.97** |
+| **Hybrid CRNN** | 89% | 79% | 0.83 |
+| **CNN Spectrogram** | 91% | 88% | 0.89 |
+| **Random Forest** | 89% | 82% | 0.85 |
+| **SVM** | 84% | 58% | 0.70 |
 #### RandomForest Performance
 
 ```text
@@ -161,5 +168,19 @@ weighted avg       0.97      0.97      0.97      3427
     accuracy                           0.84      3427
    macro avg       0.86      0.77      0.80      3427
 weighted avg       0.85      0.84      0.83      3427
+
+```
+
+
+### CRNN Performance
+```text
+              precision    recall  f1-score   support
+
+       Clean       0.90      0.94      0.92       458
+     Scratch       0.87      0.79      0.83       228
+
+    accuracy                           0.89       686
+   macro avg       0.88      0.86      0.87       686
+weighted avg       0.89      0.89      0.89       686
 
 ```
