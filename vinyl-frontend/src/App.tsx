@@ -19,7 +19,7 @@ interface AnalysisResponse {
 
 const App: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
-  const [model, setModel] = useState<string>('rf');
+  const [model, setModel] = useState<string>('crnn');
   const [loading, setLoading] = useState<boolean>(false);
   const [result, setResult] = useState<AnalysisResponse | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -103,10 +103,11 @@ const App: React.FC = () => {
           <div className="nav-group">
             <label><Activity size={16} /> Engine Mode</label>
             <select value={model} onChange={(e) => setModel(e.target.value)}>
-              <option value="rf">Random Forest</option>
-              <option value="svm">SVM</option>
+              <option value="crnn">Hybrid CRNN</option>
               <option value="cnn">CNN</option>
               <option value="mert">MERT</option>
+              <option value="rf">Random Forest</option>
+              <option value="svm">SVM</option>
             </select>
           </div>
         </nav>
