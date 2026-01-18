@@ -27,9 +27,9 @@ An automated system for detecting mechanical defects and scratches on vinyl reco
 │   ├── svm_model/                      # Support Vector Machine
 │   │   └── train_svm.py                # SVM training
 │   └── with_mert/                      # MERT Transformer-based models
-│       ├── extracting_mert.py          # MERT hidden state feature extraction
-│       ├── train_mert_model.py         # Classifier training on MERT embeddings
-│       └── vinyl_mert_classifier.keras # Final MERT classifier weights
+│   │   ├── extracting_mert.py          # MERT hidden state feature extraction
+│   │   ├── train_mert_model.py         # Classifier training on MERT embeddings
+│   │   └── vinyl_mert_classifier.keras # Final MERT classifier weights
 │   ├── crnn/                           # Hybrid CRNN (CNN + LSTM)
 │   │   └── train_crnn.py               # Training pipeline
 └── visualization/                      # Performance analytics
@@ -176,7 +176,7 @@ weighted avg       0.85      0.84      0.83      3427
 ```
 
 
-### CRNN Performance
+#### CRNN Performance
 ```text
               precision    recall  f1-score   support
 
