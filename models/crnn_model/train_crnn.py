@@ -20,22 +20,24 @@ def load_data(csv_path):
     return np.expand_dims(np.array(X), axis=-1), df['label'].values.astype('float32')
 
 
-def build_robust_crnn(input_shape):
+def build_crnn(input_shape):
     reg = regularizers.l2(0.001)
 
     model = models.Sequential([
         layers.Input(shape=input_shape),
-
+        # Start 96x188
         # CNN block 1
         layers.Conv2D(32, (3, 3), activation='relu', padding='same', kernel_regularizer=reg),
         layers.BatchNormalization(),
         layers.SpatialDropout2D(0.2),
+        # 96/2 = 48, 188/2 = 94
         layers.MaxPooling2D((2, 2)),
 
         # CNN block 2
         layers.Conv2D(64, (3, 3), activation='relu', padding='same', kernel_regularizer=reg),
         layers.BatchNormalization(),
         layers.SpatialDropout2D(0.2),
+        # 48/2 = 24, 94/2 = 47
         layers.MaxPooling2D((2, 2)),
 
         # Reshape for RNN
@@ -49,7 +51,7 @@ def build_robust_crnn(input_shape):
         layers.Dense(64, activation='relu', kernel_regularizer=reg),
         layers.Dropout(0.5),
         layers.Dense(1, activation='sigmoid')
-    ], name="crnn_vinyl")
+    ])
 
     return model
 
@@ -58,8 +60,8 @@ def train():
     print("Loading data...")
     X, y = load_data(CNN_MAP_PATH)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-
-    model = build_robust_crnn(input_shape=(96, 188, 1))
+    # Rozmiar spektrogram
+    model = build_crnn(input_shape=(96, 188, 1))
     model.compile(optimizer=tf.keras.optimizers.Adam(0.0001), loss='binary_crossentropy', metrics=['accuracy'])
 
     model_callbacks = [

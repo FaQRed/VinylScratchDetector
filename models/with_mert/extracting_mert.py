@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 DATA_PATH = '../../data'
 SAVE_DIR = '../../mert_features/'
-SR_MERT = 24000 #Hgz
+SR_MERT = 24000 # Hgz
 WINDOW_SEC = 3.0
 HOP_SEC = 1.5
 
@@ -33,7 +33,8 @@ def extract_windows_features(file_path):
 
     for start in range(0, len(audio) - samples_per_window, samples_per_hop):
         window = audio[start: start + samples_per_window]
-        inputs = processor(window, sampling_rate=SR_MERT, return_tensors="pt").to(device)
+        inputs = processor(window, sampling_rate=SR_MERT, return_tensors="pt").to(device) # will return tensors instead
+        # of list of python integers. tf - Tensorflow tensors
 
         with torch.no_grad():
             outputs = mert_model(**inputs, output_hidden_states=True)

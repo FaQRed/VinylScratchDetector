@@ -25,9 +25,9 @@ def train_rf(csv_path='../../data/extracted_features.csv'):
 
     param_grid = {
         'n_estimators': [100, 200, 300],
-        'max_depth': [None, 10, 20],
+        'max_depth': [10, 20],
         'min_samples_split': [2, 5, 10],
-        'class_weight': ['balanced', 'balanced_subsample']
+        'class_weight': ['balanced']
     }
 
     print("Starting Random Forest Hyperparameter Optimization (Grid Search)")

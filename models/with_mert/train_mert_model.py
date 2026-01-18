@@ -27,7 +27,7 @@ def train():
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    # 1536 input size from MERT
+    # 1536 input size from MERT (768 from the hidden layer and 768 from the last layer)
     model = models.Sequential([
         layers.Input(shape=(1536,)),
 
@@ -51,7 +51,7 @@ def train():
         metrics=['accuracy', tf.keras.metrics.Recall(name='recall')]
     )
 
-    weights = class_weight.compute_class_weight('balanced', classes=np.unique(y_train), y=y_train)
+    weights = class_weight.compute_class_weight('balanced', y=y_train)
     class_weights = dict(enumerate(weights))
 
     сallbacks = [

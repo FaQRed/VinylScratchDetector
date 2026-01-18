@@ -52,7 +52,7 @@ def extract_segment_features(y, sr):
 
 async def load_audio_from_upload(file, sr):
     data = await file.read()
-    y, _ = librosa.load(io.BytesIO(data), sr=sr, res_type='soxr_hq')
+    y, _ = librosa.load(io.BytesIO(data), sr=sr)
     return y
 
 def clean_results(scratches):
@@ -142,11 +142,11 @@ async def analyze_crnn(file: UploadFile = File(...)):
     for i in range(0, len(y) - win, step):
         segment = y[i:i + win]
         mel = librosa.feature.melspectrogram(y=segment, sr=sr, n_fft=512, hop_length=256, n_mels=96)
-        mel_db = librosa.power_to_db(mel, ref=np.max)
+        mel_db = librosa.power_to_db(mel, ref=np.max) # Changing from linear scale to decibel
         mel_min, mel_max = mel_db.min(), mel_db.max()
-        mel_norm = (mel_db - mel_min) / (mel_max - mel_min + 1e-6)
-        input_data = np.expand_dims(mel_norm, axis=(0, -1))
-        prob = float(crnn_model.predict(input_data, verbose=0)[0][0])
+        mel_norm = (mel_db - mel_min) / (mel_max - mel_min + 1e-6) # Epsilon
+        input_data = np.expand_dims(mel_norm, axis=(0, -1)) # from (96,188) to (1,96,188,1) (batch_size, , , channel)
+        prob = float(crnn_model.predict(input_data, verbose=0)[0][0]) # verbose=0 - silent mode
         if prob > THRESHOLD:
             found.append({"second": round(i / sr, 2), "probability": round(prob, 3)})
     return clean_results(found)

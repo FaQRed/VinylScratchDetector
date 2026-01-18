@@ -13,7 +13,7 @@ sys.path.append(root_dir)
 
 def process_and_save_mel(file_path, save_path, sr=16000, duration=3.0):
     try:
-        audio, _ = librosa.load(file_path, sr=sr, res_type='kaiser_fast')
+        audio, _ = librosa.load(file_path, sr=sr, res_type='kaiser_fast') # resample type
 
         target_samples = int(duration * sr)
         if len(audio) >= target_samples:
